@@ -11,9 +11,9 @@ class SlotMachine extends StatefulWidget {
 class _SlotMachineState extends State<SlotMachine> {
   final _random = Random();
   final _symbols = [
-    'assets/images/cherry.png',
-    'assets/images/lemon.png',
-    'assets/images/seven.png'
+    'assets/images/cherry.jpg',
+    'assets/images/lemon.jpg',
+    'assets/images/seven.jpg'
   ];
   var _coins = 10;
   var _slot1 = 'assets/images/cherry.jpg';
@@ -34,6 +34,16 @@ class _SlotMachineState extends State<SlotMachine> {
         _coins -= 1;
         message = 'Попробуй ещё раз -1 монета';
       }
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _coins = 10;
+      _slot1 = 'assets/images/cherry.jpg';
+      _slot2 = 'assets/images/lemon.jpg';
+      _slot3 = 'assets/images/seven.jpg';
+      message = '';
     });
   }
 
@@ -63,7 +73,7 @@ class _SlotMachineState extends State<SlotMachine> {
         ),
         SizedBox(height: 40),
         ElevatedButton(
-          onPressed: _spin,
+          onPressed: _coins > 0 ? _spin : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.amber,
             padding: EdgeInsets.symmetric(
@@ -77,6 +87,17 @@ class _SlotMachineState extends State<SlotMachine> {
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
+            ),
+          ),
+        ),
+        SizedBox(height: 12),
+        TextButton(
+          onPressed: _reset,
+          child: Text(
+            'Начать заново',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 16,
             ),
           ),
         ),
